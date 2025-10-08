@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film Tavsiyeleri</title>
+</head>
+<style>
+    body {
+        font-family: sans-serif;
+        margin: 2em;
+        background-color: #f4f4f9;
+        color: O#333;
+    }
+
+    h1 {
+        color: O#4a4a4a;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1em;
+    }
+
+    th,
+    td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+</style>
+
+<body>
+    <h1>Kullanıcı {{ user_id }} İçin Film Tavsiyeleri</h1>
+
+    {% if recommendations %}
+    <table>
+        <thead>
+            <tr>
+                <th>Film Ad1</th>
+                <th>Türler</th>
+                <th>Tahmini Puan</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rec in recommendations %}
+            <tr>
+                <td>{{ rec.title }}</td>
+                <td>{{ rec.genres }}</td>
+                <td>{{"%.4f"|format(rec.rating) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    { else %}
+    <p>Bu kullanıcı için tavsiye bulunamadı .< /p>
+            {% endif }
+</body>
+
+</html>

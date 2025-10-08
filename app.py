@@ -44,8 +44,11 @@ def get_recommendations (user_id):
     
        recs_list=final_recommendations.toJson.map(lambda j:json.loads(j)).collect() # dataframe i json formatına çevirme ve listeye çevirme
        
-       return render_template("recommendations.html",user_id=user_id,recommendations=recs_list) # tavsiyeleri html dosyasına gömme ve kullanıcı id sini de gönderme
+    return render_template("recommendations.html",user_id=user_id,recommendations=recs_list) # tavsiyeleri html dosyasına gömme ve kullanıcı id sini de gönderme
     
+
+if __name__=="__main__":
+    app.run(debug=True,port=5001) # uygulamayı debug modunda 5001 portunda çlıştırıyoruz . çalıştırma hata ayıklama için
 
 
 
