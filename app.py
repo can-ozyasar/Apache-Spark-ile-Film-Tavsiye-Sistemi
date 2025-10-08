@@ -28,21 +28,21 @@ def index():
 def get_recommendations (user_id):
 
     # kullanıcı id sine göre tavsiye alma fonksiyonu
-    user_df=spark.createDataFrame([(user_id)],["userId"]) # kullanıcı id sini spark dataframe e çevirme
+    user_df=spark.createDataFrame([(user_id,)],["userId"]) # kullanıcı id sini spark dataframe e çevirme
 
     recommendations=model.recommendForUserSubset(user_df,10) # modelden kullanıcı id sine göre 10 tane film tavsiyesi alma
 
-    recommendations_df=recommendations.select("recomamendations.movieId","recomamendations.rating").first().asDict() # göstermek istediğimiz tavsiyeleri dataframe den alıp listeye çevirme
+    recommendations_df=recommendations.select("recommendations.movieId","recommendations.rating").first().asDict() # göstermek istediğimiz tavsiyeleri dataframe den alıp listeye çevirme
     
     
     recs_list=[]
     if(recommendations_df and recommendations_df.get('movieId')): # eğer model bir sonuç döndürdüyse ve id si varsa
        
-       recommended_movies_df=spark.CreateDataFrame(zip(recommendations_df["movieId"],recommendations_df["rating"]),["movieId","rating"]) # tavsiye edilen film id leri ve puanlarını dataframe e çevirme birleştirme işlemi 
+       recommended_movies_df=spark.createDataFrame(zip(recommendations_df["movieId"],recommendations_df["rating"]),["movieId","rating"]) # tavsiye edilen film id leri ve puanlarını dataframe e çevirme birleştirme işlemi 
        
        final_recommendations=recommended_movies_df.join(movies_df,"movieId") # tavsiye edilen film id leri ile filmler verisetini birleştirip film isimlerini alma
     
-       recs_list=final_recommendations.toJson.map(lambda j:json.loads(j)).collect() # dataframe i json formatına çevirme ve listeye çevirme
+       recs_list=final_recommendations.toJSON.map(lambda j:json.loads(j)).collect() # dataframe i json formatına çevirme ve listeye çevirme
        
     return render_template("recommendations.html",user_id=user_id,recommendations=recs_list) # tavsiyeleri html dosyasına gömme ve kullanıcı id sini de gönderme
     

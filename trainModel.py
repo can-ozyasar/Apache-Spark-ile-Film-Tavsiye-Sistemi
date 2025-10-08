@@ -48,7 +48,7 @@ def main():# tüm kodlarımızı bu fonksiyonun içine yazacağız
     #MODELİ EĞİTME 
     model =als.fit(ratings_df)
     model_path="als_model"    # modeli eğitmek zaman alan bir iş olduğu için her tavsiye için tekrar modeli eğitmek yerine bir defa eğitip kaydetmek daha mantıklı
-    model.write().owerwrite().save(model_path) # modeli kaydettik
+    model.write().overwrite().save(model_path) # modeli kaydettik
 
 
 
@@ -67,7 +67,7 @@ def main():# tüm kodlarımızı bu fonksiyonun içine yazacağız
 
 # main fonksiyonu çalıştırma
 if __name__ == "__main__":
-    main(),
+    main()
 
 
 
