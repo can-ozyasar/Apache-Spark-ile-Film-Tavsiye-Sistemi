@@ -67,4 +67,10 @@ def main():# tüm kodlarımızı bu fonksiyonun içine yazacağız
 
 # main fonksiyonu çalıştırma
 if __name__ == "__main__":
-    main()
+    main(),
+
+
+
+
+
+
